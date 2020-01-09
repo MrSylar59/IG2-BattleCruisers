@@ -17,8 +17,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <pthread.h>
+#include <semaphore.h>
+#include <ctype.h>
+#include <fcntl.h>
 
 #define CHECK(sts, msg) if ((sts) == -1) {perror(msg);exit(-1);}
 #define PORT_SRV 2048
+#define MAX_BUFF 1024
+char buffer[MAX_BUFF];
 
 #endif
