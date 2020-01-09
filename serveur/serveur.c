@@ -130,7 +130,8 @@ void dialogueClt (int sd, struct sockaddr_in clt) {
     			strcat(MSG,":");
     			strcat(MSG,port);
 				printf("%s\n",MSG );
-				CHECK(write(sd, MSG, sizeof(MSG)+1), "Can't send");
+				CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
+				free(MSG);
 			break;
 			case 2 :
 				printf("Demande List\n");

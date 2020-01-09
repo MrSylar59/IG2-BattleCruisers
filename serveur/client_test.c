@@ -36,6 +36,7 @@ void dialogueSrv (int sd, struct sockaddr_in srv,int mode) {
 	{
 		MSG = "1 : 192.168.152.26 : 2082";
 		CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
+		memset(reponse,0,sizeof(reponse));
 		CHECK(read(sd, reponse, sizeof(reponse)), "Can't send");
 		printf("%s\n",reponse );
 	}else{
