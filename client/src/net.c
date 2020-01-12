@@ -15,6 +15,8 @@ int se, sd;
 struct sockaddr_in srv, clt;
 socklen_t cltLen;
 packet_t packet_buffer;
+struct pollfd fd;
+int res;
 
 ////////////////////////
 // FONCTIONS INTERNES
@@ -34,9 +36,6 @@ void th_dialogue(int sd){
             break;
 
             case 2: // lecture sur le réseau demandé
-                struct pollfd fd;
-                int res;
-
                 fd.fd = sd;
                 fd.events = POLLIN;
 
