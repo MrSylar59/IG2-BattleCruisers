@@ -6,8 +6,11 @@ game.o: src/game.c
 gameCell.o: src/gameCell.c
 	gcc -c src/gameCell.c -o obj/gameCell.o
 
-jeu: src/app.c game.o gameCell.o
-	gcc obj/*.o src/app.c -o bin/app.exe -lSDL2
+net.o: src/net.c
+	gcc -c src/net.c -o obj/net.o -lpthread
+
+jeu: src/app.c game.o gameCell.o net.o
+	gcc obj/*.o src/app.c -o bin/app.exe -lSDL2 -lpthread
 
 clean:
 	rm obj/*.o
