@@ -20,7 +20,7 @@
 typedef struct netPacket {
     u_int8_t size;
     u_int8_t flag;
-    u_int8_t* data;
+    u_int8_t data[20];
 } packet_t;
 
 /**
@@ -39,7 +39,7 @@ void createServer();
 /**
  * Fonction permettant à une application cliente de rejoindre une partie hébergée
 */
-void joinServer(connectionInfo_t);
+void joinServer(connectionInfo_t*);
 
 /**
  * Fonction permettant à l'hôte de fermer son serveur
