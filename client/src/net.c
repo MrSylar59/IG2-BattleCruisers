@@ -95,15 +95,15 @@ void* th_createServer(void* unused){
 }
 
 void* th_joinServer(void* pInfos){
-    connectionInfo_t infos = *(connectionInfo_t*) pInfos;
+    connectionInfo_t* infos = (connectionInfo_t*) pInfos;
 
     // Création de la socket de dialogue
     CHECK(sd=socket(PF_INET, SOCK_STREAM, 0), "Error: Failed to create dialogue socket");
 
     // Préparation de l'adressage à contacter
     srv.sin_family = PF_INET;
-    srv.sin_port = htons(infos.port);
-    srv.sin_addr.s_addr = inet_addr(infos.ipaddr);
+    srv.sin_port = htons(infos->port);
+    srv.sin_addr.s_addr = inet_addr(infos->ipaddr);
     memset(&srv.sin_zero, 0, 8);
 
     // Demande de connection avec le serveur
@@ -129,25 +129,31 @@ void createServer(){
     pthread_create(&netThread, NULL, th_createServer, NULL);
 }
 
-void joinServer(connectionInfo_t infos) {
+void joinServer(connectionInfo_t* infos) {
     connected = 1;
 
     pthread_cond_init(&cond, NULL);
     pthread_mutex_init(&mutex, NULL);
-    pthread_create(&netThread, NULL, th_joinServer, (void*)&infos);
+    pthread_create(&netThread, NULL, th_joinServer, (void*)infos);
 }
 
 void closeServer() {
+    void* ret = NULL;
+
     host = 0;
     connected = 0;
     op = 0;
     pthread_cond_signal(&cond);
+    pthread_join(netThread, &ret);
 }
 
 void disconnect(){
+    void* ret = NULL;
+
     connected = 0;
     op = 0;
     pthread_cond_signal(&cond);
+    pthread_join(netThread, &ret);
 }
 
 void netSend(packet_t packet){
