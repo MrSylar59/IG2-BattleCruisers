@@ -11,44 +11,59 @@ void acquitterLesFils(int signal_number)
     wait(&status);
 }
 
-void ajouterRoom(char* ip,int port){
+int ajouterRoom(char* ip,int port){
 	FILE* pf;
 	pf = fopen("memoire.dat", "r+");
 	char* test_ip=(char *) malloc(20);
 	int test_port;
 	int test=0;
-	int test_id;
+	int id;
 	while(!feof(pf)){
-		fscanf(pf,"%d : %s : %d",&test_id,test_ip,&test_port);
+		fscanf(pf,"%d : %s : %d",&id,test_ip,&test_port);
 		if (strcmp(test_ip,ip) == 0 && test_port == port)
 		{
 			test = 1;
 		}
 	}
-
+	printf("%d\n",test );
 	if (test == 0)
 	{
-		printf("%d\n",pthread_self());
-		fprintf(pf, "%d : %s : %d\n",pthread_self(),ip,port);
+		FILE* pfile;
+		pfile = fopen("id.dat", "r");
+		fscanf(pfile,"%d",&id);
+		fclose(pfile);
+		pfile = fopen("id.dat", "w");
+		id++;
+		fprintf(pfile,"%d",id);
+		fclose(pfile);
+		fprintf(pf, "%d : %s : %d\n",id,ip,port);
 	}
-
 	fclose(pf);
+	free(test_ip);
+	return id;
 }
 
-void supprimerRoom(char* ip,int port){
+int supprimerRoom(char* ip,int port){
 	FILE* pf;
 	FILE* pfile;
 	pf = fopen("memoire.dat", "r+");
-	pfile = fopen("save.dat","r");
+	pfile = fopen("save.dat","w");
 	char* test_ip=(char *) malloc(20);
 	int test_port;
 	int test=0;
 	int test_id;
+	int id = -1;
 	while(!feof(pf)){
+		test_id = -1;
 		fscanf(pf,"%d : %s : %d",&test_id,test_ip,&test_port);
-		if (strcmp(test_ip,ip) != 0 || test_port != port)
+		if ((strcmp(test_ip,ip) != 0 || test_port != port ) && test_id != -1)
 		{
 			fprintf(pfile, "%d : %s : %d\n",test_id,test_ip,test_port);
+		}else{
+			if (test_id != -1)
+			{
+				id = test_id;
+			}
 		}
 	}
 	fclose(pf);
@@ -56,12 +71,16 @@ void supprimerRoom(char* ip,int port){
 	pf = fopen("memoire.dat", "w");
 	pfile = fopen("save.dat","r");
 	while(!feof(pfile)){
+		test_id = -1;
 		fscanf(pfile,"%d : %s : %d",&test_id,test_ip,&test_port);
-		fprintf(pf, "%d : %s : %d\n",test_id,test_ip,test_port);
+		if (test_id != -1)
+		{
+			fprintf(pf, "%d : %s : %d\n",test_id,test_ip,test_port);
+		}
 	}
 	fclose(pf);
 	fclose(pfile);
-	printf("End\n");
+	return id;
 }
 
 char* LireRoom(){
@@ -157,18 +176,20 @@ void dialogueClt (int sd, struct sockaddr_in clt) {
 				printf("%s\n",adresse);
 				printf("%s\n",port);
 				sem_wait(mutex);
-				ajouterRoom(adresse,(int)*port);
+				int id = ajouterRoom(adresse,(int)*port);
 				sem_post(mutex);
 				int fullSize = strlen(adresse)+strlen(port)+3+sizeof(int);
 				char* MSG = (char *) malloc( fullSize );
-    			printf("MSG\n");
-    			strcpy(MSG,pthread_self());
-    			strcpy(MSG,":");
-    			strcpy(MSG,adresse);
+    			char* id_char = (char *) malloc( sizeof(int));
+    			sprintf(id_char,"%d",id);
+    			strcpy(MSG,id_char);
+    			strcat(MSG,":");	
+    			strcat(MSG,adresse);
     			strcat(MSG,":");
     			strcat(MSG,port);
 				printf("%s\n",MSG );
 				CHECK(write(sd, MSG, strlen(MSG)), "Can't send");
+				free(id_char);
 				free(MSG);
 			break;
 			case 2 :
@@ -186,8 +207,20 @@ void dialogueClt (int sd, struct sockaddr_in clt) {
 			case 4 :
 				printf("Lancement partie\n");
 				sem_wait(mutex);
-				supprimerRoom(adresse,(int)*port);
+				id = supprimerRoom(adresse,(int)*port);
 				sem_post(mutex);
+				fullSize = strlen(adresse)+strlen(port)+3+sizeof(int);
+				MSG = (char *) malloc( fullSize );
+				id_char = (char *) malloc( sizeof(int));
+				sprintf(id_char,"%d",id);
+    			strcpy(MSG,id_char);
+    			strcat(MSG,":");
+    			strcat(MSG,adresse);
+    			strcat(MSG,":");
+    			strcat(MSG,port);
+				CHECK(write(sd, MSG, strlen(MSG)), "Can't send");
+				free(id_char);
+				free(MSG);
 			break;
 			default :
 			printf("NOK : message recu %s\n", buffer); 
