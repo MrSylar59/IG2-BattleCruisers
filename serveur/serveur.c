@@ -13,42 +13,78 @@ void acquitterLesFils(int signal_number)
 
 void ajouterRoom(char* ip,int port){
 	FILE* pf;
-	pf = fopen("memoire.dat", "a");
+	pf = fopen("memoire.dat", "r+");
+	char* test_ip=(char *) malloc(20);
+	int test_port;
+	int test=0;
+	int test_id;
+	while(!feof(pf)){
+		fscanf(pf,"%d : %s : %d",&test_id,test_ip,&test_port);
+		if (strcmp(test_ip,ip) == 0 && test_port == port)
+		{
+			test = 1;
+		}
+	}
 
-	fprintf(pf, "%s:%d\n",ip,port);
+	if (test == 0)
+	{
+		printf("%d\n",pthread_self());
+		fprintf(pf, "%d : %s : %d\n",pthread_self(),ip,port);
+	}
 
 	fclose(pf);
 }
 
 void supprimerRoom(char* ip,int port){
 	FILE* pf;
-	char* ligne;
-	/*pf = fopen("memoire.dat", "");
-	while(fscanf(pf,ligne) != EOF)
-		if (!strcmp(ligne,ip+":"+port))
+	FILE* pfile;
+	pf = fopen("memoire.dat", "r+");
+	pfile = fopen("save.dat","r");
+	char* test_ip=(char *) malloc(20);
+	int test_port;
+	int test=0;
+	int test_id;
+	while(!feof(pf)){
+		fscanf(pf,"%d : %s : %d",&test_id,test_ip,&test_port);
+		if (strcmp(test_ip,ip) != 0 || test_port != port)
 		{
-			
+			fprintf(pfile, "%d : %s : %d\n",test_id,test_ip,test_port);
 		}
-	fclose(pf);*/
-
+	}
+	fclose(pf);
+	fclose(pfile);
+	pf = fopen("memoire.dat", "w");
+	pfile = fopen("save.dat","r");
+	while(!feof(pfile)){
+		fscanf(pfile,"%d : %s : %d",&test_id,test_ip,&test_port);
+		fprintf(pf, "%d : %s : %d\n",test_id,test_ip,test_port);
+	}
+	fclose(pf);
+	fclose(pfile);
+	printf("End\n");
 }
 
 char* LireRoom(){
 	FILE* pf;
-	char* ligne="";
+	int MAX_LIGNE = 50;
+	char* ligne=(char *) malloc(MAX_LIGNE);
+	char* all=(char *) malloc(MAX_BUFF);
 	pf = fopen("memoire.dat", "r");
 	if (pf != NULL)
 	{
 		while(!feof(pf)){
 			fscanf(pf,"%s",ligne);
-			printf("ligne = %s\n",ligne );
+    		strcat(all,ligne);
+			strcat(all,":");
 		}
+		int size = strlen(all);
+		all[size-1] = '\0';
 	}
 	else{
 		printf("pf null\n");
 	}
 	fclose(pf);
-	return ligne;
+	return all;
 }
 
 
@@ -123,27 +159,29 @@ void dialogueClt (int sd, struct sockaddr_in clt) {
 				sem_wait(mutex);
 				ajouterRoom(adresse,(int)*port);
 				sem_post(mutex);
-				int fullSize = strlen(adresse)+strlen(port)+2;
+				int fullSize = strlen(adresse)+strlen(port)+3+sizeof(int);
 				char* MSG = (char *) malloc( fullSize );
     			printf("MSG\n");
+    			strcpy(MSG,pthread_self());
+    			strcpy(MSG,":");
     			strcpy(MSG,adresse);
     			strcat(MSG,":");
     			strcat(MSG,port);
 				printf("%s\n",MSG );
-				CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
+				CHECK(write(sd, MSG, strlen(MSG)), "Can't send");
 				free(MSG);
 			break;
 			case 2 :
 				printf("Demande List\n");
-				printf("?\n");
 				sem_wait(mutex);
 				char* liste = LireRoom();
-				printf("nani\n");
+				printf("%s\n",liste);
 				sem_post(mutex);
-				CHECK(write(sd,liste , sizeof(liste)+1), "Can't send");
+				CHECK(write(sd,liste , strlen(liste)+1), "Can't send");
 			break;
 			case 3:
 				printf("Join Room\n");
+
 			break;
 			case 4 :
 				printf("Lancement partie\n");
