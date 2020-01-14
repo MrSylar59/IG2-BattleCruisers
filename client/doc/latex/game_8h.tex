@@ -1,0 +1,191 @@
+\hypertarget{game_8h}{}\section{includes/game.h File Reference}
+\label{game_8h}\index{includes/game.\+h@{includes/game.\+h}}
+
+
+Déclaration pour le jeu.  
+
+
+{\ttfamily \#include $<$S\+D\+L2/\+S\+D\+L.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../includes/clt\+Net.\+h\char`\"{}}\newline
+Include dependency graph for game.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{game_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{game_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmouse_pos}{mouse\+Pos}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{game_8h_ac601b8bdcae724f2d2745e0dc8656d47}\label{game_8h_ac601b8bdcae724f2d2745e0dc8656d47}} 
+typedef struct \hyperlink{structmouse_pos}{mouse\+Pos} {\bfseries t\+\_\+mouse\+Pos}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{game_8h_aaf29bbe309504beb4cfec2481eacee62}{game\+State} \{ {\bfseries M\+A\+I\+N\+\_\+\+M\+E\+NU}, 
+{\bfseries P\+L\+A\+C\+I\+NG}, 
+{\bfseries P\+L\+A\+Y\+I\+NG}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{game_8h_a41ac2567d4645c7f92a1ad44194a02e0}{game\+Init} ()
+\item 
+void \hyperlink{game_8h_a46b6e5d99fee9b3daccde93b291baede}{game\+Update} ()
+\item 
+void \hyperlink{game_8h_a18498e6ffe8b6ccd129f2c416a9a2c97}{game\+Draw} (S\+D\+L\+\_\+\+Renderer $\ast$)
+\item 
+void \hyperlink{game_8h_acb3f0314332e44f50b8a08d97ae74509}{game\+Mouse\+Event} (S\+D\+L\+\_\+\+Mouse\+Button\+Event)
+\item 
+void \hyperlink{game_8h_aee864b1d56e4d7217c14e8ab69a783bc}{game\+Mouse\+Motion} (S\+D\+L\+\_\+\+Mouse\+Motion\+Event)
+\item 
+void \hyperlink{game_8h_aa53e39913b7b9af45ad49c3bf1b75ac5}{game\+Key\+Pressed} (S\+D\+L\+\_\+\+Keyboard\+Event)
+\item 
+int \hyperlink{game_8h_af15d7f4d0494afa16263d231aba7e094}{min} (int, int)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Déclaration pour le jeu. 
+
+\begin{DoxyAuthor}{Author}
+Thomas De Maen 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14 Janvier 2020
+\end{DoxyDate}
+Il s\textquotesingle{}agit du fichier de délaration des différentes structures de données et fonctions utilisées pour le bon fonctionnement du jeu. 
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{game_8h_aaf29bbe309504beb4cfec2481eacee62}\label{game_8h_aaf29bbe309504beb4cfec2481eacee62}} 
+\index{game.\+h@{game.\+h}!game\+State@{game\+State}}
+\index{game\+State@{game\+State}!game.\+h@{game.\+h}}
+\subsubsection{\texorpdfstring{game\+State}{gameState}}
+{\footnotesize\ttfamily enum \hyperlink{game_8h_aaf29bbe309504beb4cfec2481eacee62}{game\+State}}
+
+Enum représentant les différents états possibles du jeu 
+
+Definition at line 21 of file game.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{game_8h_a18498e6ffe8b6ccd129f2c416a9a2c97}\label{game_8h_a18498e6ffe8b6ccd129f2c416a9a2c97}} 
+\index{game.\+h@{game.\+h}!game\+Draw@{game\+Draw}}
+\index{game\+Draw@{game\+Draw}!game.\+h@{game.\+h}}
+\subsubsection{\texorpdfstring{game\+Draw()}{gameDraw()}}
+{\footnotesize\ttfamily game\+Draw (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{p\+Rend }\end{DoxyParamCaption})}
+
+Fonction appellée en continue afin de dessiner le jeu, elle est appellée après chaque update T\+O\+DO\+: Réguler la fréquence de rafraichissement (F\+PS cap) 
+\begin{DoxyParams}{Parameters}
+{\em p\+Rend} & Pointeur sur le renderer utilisé par S\+DL pour dessiner sur la fenêtre de jeu \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 160 of file game.\+c.
+
+\mbox{\Hypertarget{game_8h_a41ac2567d4645c7f92a1ad44194a02e0}\label{game_8h_a41ac2567d4645c7f92a1ad44194a02e0}} 
+\index{game.\+h@{game.\+h}!game\+Init@{game\+Init}}
+\index{game\+Init@{game\+Init}!game.\+h@{game.\+h}}
+\subsubsection{\texorpdfstring{game\+Init()}{gameInit()}}
+{\footnotesize\ttfamily game\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Fonction appellée après l\textquotesingle{}initialisation de la S\+DL et la création de la fenêtre Le premier entier permet de savoir si le client est un hôte ou non, dans le cas où ce n\textquotesingle{}est pas l\textquotesingle{}hôte, les infos de connexion sont passés en deuxième argument 
+
+Definition at line 22 of file game.\+c.
+
+\mbox{\Hypertarget{game_8h_aa53e39913b7b9af45ad49c3bf1b75ac5}\label{game_8h_aa53e39913b7b9af45ad49c3bf1b75ac5}} 
+\index{game.\+h@{game.\+h}!game\+Key\+Pressed@{game\+Key\+Pressed}}
+\index{game\+Key\+Pressed@{game\+Key\+Pressed}!game.\+h@{game.\+h}}
+\subsubsection{\texorpdfstring{game\+Key\+Pressed()}{gameKeyPressed()}}
+{\footnotesize\ttfamily game\+Key\+Pressed (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Keyboard\+Event}]{e }\end{DoxyParamCaption})}
+
+Fonction appellée à chaque fois qu\textquotesingle{}un événement du type S\+D\+L\+\_\+\+K\+E\+Y\+D\+O\+WN est récupéré par S\+DL 
+\begin{DoxyParams}{Parameters}
+{\em e} & Evénement capturé par S\+DL \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 248 of file game.\+c.
+
+\mbox{\Hypertarget{game_8h_acb3f0314332e44f50b8a08d97ae74509}\label{game_8h_acb3f0314332e44f50b8a08d97ae74509}} 
+\index{game.\+h@{game.\+h}!game\+Mouse\+Event@{game\+Mouse\+Event}}
+\index{game\+Mouse\+Event@{game\+Mouse\+Event}!game.\+h@{game.\+h}}
+\subsubsection{\texorpdfstring{game\+Mouse\+Event()}{gameMouseEvent()}}
+{\footnotesize\ttfamily game\+Mouse\+Event (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Mouse\+Button\+Event}]{e }\end{DoxyParamCaption})}
+
+Fonction appellée à chaque fois qu\textquotesingle{}un événement du type S\+D\+L\+\_\+\+M\+O\+U\+S\+E\+B\+U\+T\+T\+O\+N\+D\+O\+WN est récupéré par S\+DL 
+\begin{DoxyParams}{Parameters}
+{\em e} & Evénement capturé par S\+DL \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 183 of file game.\+c.
+
+\mbox{\Hypertarget{game_8h_aee864b1d56e4d7217c14e8ab69a783bc}\label{game_8h_aee864b1d56e4d7217c14e8ab69a783bc}} 
+\index{game.\+h@{game.\+h}!game\+Mouse\+Motion@{game\+Mouse\+Motion}}
+\index{game\+Mouse\+Motion@{game\+Mouse\+Motion}!game.\+h@{game.\+h}}
+\subsubsection{\texorpdfstring{game\+Mouse\+Motion()}{gameMouseMotion()}}
+{\footnotesize\ttfamily game\+Mouse\+Motion (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Mouse\+Motion\+Event}]{e }\end{DoxyParamCaption})}
+
+Fonction appellée à chaque fois qu\textquotesingle{}un événement du type S\+D\+L\+\_\+\+M\+O\+U\+S\+E\+M\+O\+T\+I\+ON est récupéré par S\+DL 
+\begin{DoxyParams}{Parameters}
+{\em e} & Evénement capturé par S\+DL \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 233 of file game.\+c.
+
+\mbox{\Hypertarget{game_8h_a46b6e5d99fee9b3daccde93b291baede}\label{game_8h_a46b6e5d99fee9b3daccde93b291baede}} 
+\index{game.\+h@{game.\+h}!game\+Update@{game\+Update}}
+\index{game\+Update@{game\+Update}!game.\+h@{game.\+h}}
+\subsubsection{\texorpdfstring{game\+Update()}{gameUpdate()}}
+{\footnotesize\ttfamily game\+Update (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Fonction appellée en continue afin de mettre à jour la logique du jeu T\+O\+DO\+: Réguler la fréquence de rafraichissement (F\+PS cap) 
+
+Definition at line 39 of file game.\+c.
+
+\mbox{\Hypertarget{game_8h_af15d7f4d0494afa16263d231aba7e094}\label{game_8h_af15d7f4d0494afa16263d231aba7e094}} 
+\index{game.\+h@{game.\+h}!min@{min}}
+\index{min@{min}!game.\+h@{game.\+h}}
+\subsubsection{\texorpdfstring{min()}{min()}}
+{\footnotesize\ttfamily min (\begin{DoxyParamCaption}\item[{int}]{a,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+Fonction utilitaire qui renvoie le minimum entre deux entiers 
+\begin{DoxyParams}{Parameters}
+{\em a} & Premier nombre à comparer au second \\
+\hline
+{\em b} & Second nombre à comparer au premier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Le nombre le plus petit entre a et b 
+\end{DoxyReturn}
+
+
+Definition at line 274 of file game.\+c.
+

@@ -1,0 +1,166 @@
+\hypertarget{game_cell_8h}{}\section{includes/game\+Cell.h File Reference}
+\label{game_cell_8h}\index{includes/game\+Cell.\+h@{includes/game\+Cell.\+h}}
+
+
+Déclaration pour les cases de jeu.  
+
+
+{\ttfamily \#include $<$S\+D\+L2/\+S\+D\+L\+\_\+rect.\+h$>$}\newline
+{\ttfamily \#include $<$S\+D\+L2/\+S\+D\+L\+\_\+render.\+h$>$}\newline
+Include dependency graph for game\+Cell.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{game_cell_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{game_cell_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgame_cell}{game\+Cell}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{game_cell_8h_a898bd037fbdd4d79f7b7dbbb81118c2b}\label{game_cell_8h_a898bd037fbdd4d79f7b7dbbb81118c2b}} 
+typedef struct \hyperlink{structgame_cell}{game\+Cell} {\bfseries t\+\_\+game\+Cell}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{game_cell_8h_a38e97bf4503f8099c49fac77b951ae63}{cell\+State} \{ \newline
+{\bfseries N\+E\+U\+T\+R\+AL}, 
+{\bfseries H\+O\+V\+E\+R\+ED}, 
+{\bfseries W\+A\+T\+ER}, 
+{\bfseries D\+E\+S\+T\+R\+O\+Y\+ED}, 
+\newline
+{\bfseries V\+A\+L\+ID}, 
+{\bfseries S\+H\+IP}, 
+{\bfseries I\+N\+V\+A\+L\+ID}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structgame_cell}{t\+\_\+game\+Cell} \hyperlink{game_cell_8h_a7bdabe24007f1d273afcfd94fad6a4bf}{create\+Game\+Cell} (int, int, int, int)
+\item 
+void \hyperlink{game_cell_8h_a59489fd4131c2c63386102c5cc1bd561}{render\+Game\+Cell} (S\+D\+L\+\_\+\+Renderer $\ast$, \hyperlink{structgame_cell}{t\+\_\+game\+Cell} $\ast$)
+\item 
+void \hyperlink{game_cell_8h_ac554501d8635168e511e9ede5bc3ecfb}{set\+Game\+Cell\+State} (enum \hyperlink{game_cell_8h_a38e97bf4503f8099c49fac77b951ae63}{cell\+State}, \hyperlink{structgame_cell}{t\+\_\+game\+Cell} $\ast$)
+\item 
+void \hyperlink{game_cell_8h_a1add810252b8a59950263828a6d25f9d}{set\+Game\+Cell\+Ship} (u\+\_\+int8\+\_\+t, \hyperlink{structgame_cell}{t\+\_\+game\+Cell} $\ast$)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Déclaration pour les cases de jeu. 
+
+\begin{DoxyAuthor}{Author}
+Thomas De Maen 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14 Janvier 2020
+\end{DoxyDate}
+Il s\textquotesingle{}agit du fichier de délaration des différentes structures de données et fonctions utilisées pour le bon fonctionnement des cases de jeu. 
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{game_cell_8h_a38e97bf4503f8099c49fac77b951ae63}\label{game_cell_8h_a38e97bf4503f8099c49fac77b951ae63}} 
+\index{game\+Cell.\+h@{game\+Cell.\+h}!cell\+State@{cell\+State}}
+\index{cell\+State@{cell\+State}!game\+Cell.\+h@{game\+Cell.\+h}}
+\subsubsection{\texorpdfstring{cell\+State}{cellState}}
+{\footnotesize\ttfamily enum \hyperlink{game_cell_8h_a38e97bf4503f8099c49fac77b951ae63}{cell\+State}}
+
+L\textquotesingle{}ensemble des états que peuvent avoir une case de jeu 
+
+Definition at line 21 of file game\+Cell.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{game_cell_8h_a7bdabe24007f1d273afcfd94fad6a4bf}\label{game_cell_8h_a7bdabe24007f1d273afcfd94fad6a4bf}} 
+\index{game\+Cell.\+h@{game\+Cell.\+h}!create\+Game\+Cell@{create\+Game\+Cell}}
+\index{create\+Game\+Cell@{create\+Game\+Cell}!game\+Cell.\+h@{game\+Cell.\+h}}
+\subsubsection{\texorpdfstring{create\+Game\+Cell()}{createGameCell()}}
+{\footnotesize\ttfamily create\+Game\+Cell (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{w,  }\item[{int}]{h }\end{DoxyParamCaption})}
+
+Fonction permettant de créer une nouvelle case de jeu 
+\begin{DoxyParams}{Parameters}
+{\em x} & La coordonnée X de la case \\
+\hline
+{\em y} & La coordonnée Y de la case \\
+\hline
+{\em w} & La largeur de la case \\
+\hline
+{\em h} & La hauteur de la case \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+La case qui a été créée 
+\end{DoxyReturn}
+
+
+Definition at line 3 of file game\+Cell.\+c.
+
+\mbox{\Hypertarget{game_cell_8h_a59489fd4131c2c63386102c5cc1bd561}\label{game_cell_8h_a59489fd4131c2c63386102c5cc1bd561}} 
+\index{game\+Cell.\+h@{game\+Cell.\+h}!render\+Game\+Cell@{render\+Game\+Cell}}
+\index{render\+Game\+Cell@{render\+Game\+Cell}!game\+Cell.\+h@{game\+Cell.\+h}}
+\subsubsection{\texorpdfstring{render\+Game\+Cell()}{renderGameCell()}}
+{\footnotesize\ttfamily render\+Game\+Cell (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{p\+Rend,  }\item[{\hyperlink{structgame_cell}{t\+\_\+game\+Cell} $\ast$}]{p\+Cell }\end{DoxyParamCaption})}
+
+Fonction permettant de dessiner une case de jeu à l\textquotesingle{}écran, la couleur de la case dépend de son état 
+\begin{DoxyParams}{Parameters}
+{\em p\+Rend} & Pointeur sur le renderer S\+DL utilisé pour dessiner sur la fenêtre de jeu \\
+\hline
+{\em p\+Cell} & Pointeur sur la case à dessiner \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 17 of file game\+Cell.\+c.
+
+\mbox{\Hypertarget{game_cell_8h_a1add810252b8a59950263828a6d25f9d}\label{game_cell_8h_a1add810252b8a59950263828a6d25f9d}} 
+\index{game\+Cell.\+h@{game\+Cell.\+h}!set\+Game\+Cell\+Ship@{set\+Game\+Cell\+Ship}}
+\index{set\+Game\+Cell\+Ship@{set\+Game\+Cell\+Ship}!game\+Cell.\+h@{game\+Cell.\+h}}
+\subsubsection{\texorpdfstring{set\+Game\+Cell\+Ship()}{setGameCellShip()}}
+{\footnotesize\ttfamily set\+Game\+Cell\+Ship (\begin{DoxyParamCaption}\item[{u\+\_\+int8\+\_\+t}]{has\+Ship,  }\item[{\hyperlink{structgame_cell}{t\+\_\+game\+Cell} $\ast$}]{p\+Cell }\end{DoxyParamCaption})}
+
+Permet de définir qu\textquotesingle{}une case possède un morceau de navir. Le premier paramètre doit être égal à 1 ou 0 
+\begin{DoxyParams}{Parameters}
+{\em has\+Ship} & 0 si la case ne doit pas contenir de bâteau, n\textquotesingle{}importe quel autre nombre sinon \\
+\hline
+{\em p\+Cell} & Pointeur sur la case sur laquelle on souhaite ajouter ou supprimer un bâteau \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 50 of file game\+Cell.\+c.
+
+\mbox{\Hypertarget{game_cell_8h_ac554501d8635168e511e9ede5bc3ecfb}\label{game_cell_8h_ac554501d8635168e511e9ede5bc3ecfb}} 
+\index{game\+Cell.\+h@{game\+Cell.\+h}!set\+Game\+Cell\+State@{set\+Game\+Cell\+State}}
+\index{set\+Game\+Cell\+State@{set\+Game\+Cell\+State}!game\+Cell.\+h@{game\+Cell.\+h}}
+\subsubsection{\texorpdfstring{set\+Game\+Cell\+State()}{setGameCellState()}}
+{\footnotesize\ttfamily set\+Game\+Cell\+State (\begin{DoxyParamCaption}\item[{enum \hyperlink{game_cell_8h_a38e97bf4503f8099c49fac77b951ae63}{cell\+State}}]{state,  }\item[{\hyperlink{structgame_cell}{t\+\_\+game\+Cell} $\ast$}]{p\+Cell }\end{DoxyParamCaption})}
+
+Permet de modifier l\textquotesingle{}état d\textquotesingle{}une case. Une case détruite (D\+E\+S\+T\+R\+O\+Y\+ED ou W\+A\+T\+ER) ne peut plus changer d\textquotesingle{}état réduisant ainsi l\textquotesingle{}espace de jeu. 
+\begin{DoxyParams}{Parameters}
+{\em state} & Le nouvel état de la case \\
+\hline
+{\em p\+Cell} & Pointeur sur la case dont on souhaite modifier l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 45 of file game\+Cell.\+c.
+

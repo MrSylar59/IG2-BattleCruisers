@@ -1,0 +1,221 @@
+\hypertarget{clt_net_8h}{}\section{includes/clt\+Net.h File Reference}
+\label{clt_net_8h}\index{includes/clt\+Net.\+h@{includes/clt\+Net.\+h}}
+
+
+Déclaration pour la lib networking.  
+
+
+{\ttfamily \#include \char`\"{}../../shared/includes.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$poll.\+h$>$}\newline
+Include dependency graph for clt\+Net.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{clt_net_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{clt_net_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structnet_packet}{net\+Packet}
+\item 
+struct \hyperlink{structnet_connection_info}{net\+Connection\+Info}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{clt_net_8h_ac42367fe5c999ec6650de83e9d72fe8c}{S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT}~6666
+\item 
+\#define \hyperlink{clt_net_8h_adfe214cdf99ea5f07a40e6e322939dd9}{R\+E\+A\+D\+\_\+\+TO}~500
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{clt_net_8h_ab6549bcbc223bcbd6c7e4b513f1f236a}\label{clt_net_8h_ab6549bcbc223bcbd6c7e4b513f1f236a}} 
+typedef struct \hyperlink{structnet_packet}{net\+Packet} {\bfseries packet\+\_\+t}
+\item 
+\mbox{\Hypertarget{clt_net_8h_ada51de97305197df8958c1591e64b068}\label{clt_net_8h_ada51de97305197df8958c1591e64b068}} 
+typedef struct \hyperlink{structnet_connection_info}{net\+Connection\+Info} {\bfseries connection\+Info\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{clt_net_8h_a4d9220d85eee06ac4b2205196126953f}{create\+Server} ()
+\item 
+void \hyperlink{clt_net_8h_a0dcd7a35d526d4014f56a18dc4a0494a}{join\+Server} (\hyperlink{structnet_connection_info}{connection\+Info\+\_\+t} $\ast$)
+\item 
+void \hyperlink{clt_net_8h_ad99a2f323b9c39be8a81a6057ff3d717}{close\+Server} ()
+\item 
+void \hyperlink{clt_net_8h_abe175fcf658475bc56e9d6fa02bc88ec}{disconnect} ()
+\item 
+void \hyperlink{clt_net_8h_a068e6bafd1f6441a0f8b6aea130fdcc8}{net\+Send} (\hyperlink{structnet_packet}{packet\+\_\+t})
+\item 
+\hyperlink{structnet_packet}{packet\+\_\+t} \hyperlink{clt_net_8h_af91a05c6e75309e686e6a24fc9e11637}{net\+Read} ()
+\item 
+u\+\_\+int8\+\_\+t \hyperlink{clt_net_8h_a4770fcff580d18f4f92ac1d9fbc93097}{is\+Host} ()
+\item 
+u\+\_\+int8\+\_\+t \hyperlink{clt_net_8h_af160f7fbbf281d018ae3162521b8267d}{is\+Connected} ()
+\item 
+u\+\_\+int8\+\_\+t \hyperlink{clt_net_8h_a3482ef4e4b21925e27b60f77d60b6cd1}{has\+Client} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Déclaration pour la lib networking. 
+
+\begin{DoxyAuthor}{Author}
+Thomas De Maen 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14 Janvier 2020
+\end{DoxyDate}
+Il s\textquotesingle{}agit du fichier de délaration des différentes structures de données et fonctions utilisées pour le bon fonctionnement de la librairie Networking. 
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{clt_net_8h_adfe214cdf99ea5f07a40e6e322939dd9}\label{clt_net_8h_adfe214cdf99ea5f07a40e6e322939dd9}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!R\+E\+A\+D\+\_\+\+TO@{R\+E\+A\+D\+\_\+\+TO}}
+\index{R\+E\+A\+D\+\_\+\+TO@{R\+E\+A\+D\+\_\+\+TO}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{R\+E\+A\+D\+\_\+\+TO}{READ\_TO}}
+{\footnotesize\ttfamily \#define R\+E\+A\+D\+\_\+\+TO~500}
+
+Nombre de milisecondes avant qu\textquotesingle{}une opération de lecture time out 
+
+Definition at line 27 of file clt\+Net.\+h.
+
+\mbox{\Hypertarget{clt_net_8h_ac42367fe5c999ec6650de83e9d72fe8c}\label{clt_net_8h_ac42367fe5c999ec6650de83e9d72fe8c}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT@{S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT}}
+\index{S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT@{S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT}{SERVER\_PORT}}
+{\footnotesize\ttfamily \#define S\+E\+R\+V\+E\+R\+\_\+\+P\+O\+RT~6666}
+
+Numéro de port de l\textquotesingle{}hôte d\textquotesingle{}une partie 
+
+Definition at line 21 of file clt\+Net.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{clt_net_8h_ad99a2f323b9c39be8a81a6057ff3d717}\label{clt_net_8h_ad99a2f323b9c39be8a81a6057ff3d717}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!close\+Server@{close\+Server}}
+\index{close\+Server@{close\+Server}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{close\+Server()}{closeServer()}}
+{\footnotesize\ttfamily close\+Server (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Fonction permettant à l\textquotesingle{}hôte de fermer son serveur 
+
+Definition at line 149 of file net.\+c.
+
+\mbox{\Hypertarget{clt_net_8h_a4d9220d85eee06ac4b2205196126953f}\label{clt_net_8h_a4d9220d85eee06ac4b2205196126953f}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!create\+Server@{create\+Server}}
+\index{create\+Server@{create\+Server}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{create\+Server()}{createServer()}}
+{\footnotesize\ttfamily create\+Server (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Fonction permettant à une application cliente d\textquotesingle{}héberger une partie en P2P 
+
+Definition at line 127 of file net.\+c.
+
+\mbox{\Hypertarget{clt_net_8h_abe175fcf658475bc56e9d6fa02bc88ec}\label{clt_net_8h_abe175fcf658475bc56e9d6fa02bc88ec}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{disconnect()}{disconnect()}}
+{\footnotesize\ttfamily disconnect (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Fonction permettant à un client de se déconnecter d\textquotesingle{}un hôte 
+
+Definition at line 159 of file net.\+c.
+
+\mbox{\Hypertarget{clt_net_8h_a3482ef4e4b21925e27b60f77d60b6cd1}\label{clt_net_8h_a3482ef4e4b21925e27b60f77d60b6cd1}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!has\+Client@{has\+Client}}
+\index{has\+Client@{has\+Client}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{has\+Client()}{hasClient()}}
+{\footnotesize\ttfamily has\+Client (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Fonction permettant à une application cliente de savoir si elle a des clients connectés \begin{DoxyReturn}{Returns}
+1 si l\textquotesingle{}appellant est un hôte avec au moins un client connecté et 0 sinon 
+\end{DoxyReturn}
+
+
+Definition at line 212 of file net.\+c.
+
+\mbox{\Hypertarget{clt_net_8h_af160f7fbbf281d018ae3162521b8267d}\label{clt_net_8h_af160f7fbbf281d018ae3162521b8267d}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!is\+Connected@{is\+Connected}}
+\index{is\+Connected@{is\+Connected}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{is\+Connected()}{isConnected()}}
+{\footnotesize\ttfamily is\+Connected (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Fonction permettant à une application de savoir si elle est connectée \begin{DoxyReturn}{Returns}
+1 si l\textquotesingle{}appellant est connecté (ou est l\textquotesingle{}hôte) à un serveur et 0 sinon 
+\end{DoxyReturn}
+
+
+Definition at line 208 of file net.\+c.
+
+\mbox{\Hypertarget{clt_net_8h_a4770fcff580d18f4f92ac1d9fbc93097}\label{clt_net_8h_a4770fcff580d18f4f92ac1d9fbc93097}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!is\+Host@{is\+Host}}
+\index{is\+Host@{is\+Host}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{is\+Host()}{isHost()}}
+{\footnotesize\ttfamily is\+Host (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Fonction permettant à une application cliente de savoir si elle est hôte \begin{DoxyReturn}{Returns}
+1 si l\textquotesingle{}appellant est l\textquotesingle{}hôte d\textquotesingle{}un serveur et 0 sinon 
+\end{DoxyReturn}
+
+
+Definition at line 204 of file net.\+c.
+
+\mbox{\Hypertarget{clt_net_8h_a0dcd7a35d526d4014f56a18dc4a0494a}\label{clt_net_8h_a0dcd7a35d526d4014f56a18dc4a0494a}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!join\+Server@{join\+Server}}
+\index{join\+Server@{join\+Server}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{join\+Server()}{joinServer()}}
+{\footnotesize\ttfamily join\+Server (\begin{DoxyParamCaption}\item[{\hyperlink{structnet_connection_info}{connection\+Info\+\_\+t} $\ast$}]{p\+Infos }\end{DoxyParamCaption})}
+
+Fonction permettant à une application cliente de rejoindre une partie hébergée 
+\begin{DoxyParams}{Parameters}
+{\em p\+Infos} & Pointeur sur les informations de connexion au serveur \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 138 of file net.\+c.
+
+\mbox{\Hypertarget{clt_net_8h_af91a05c6e75309e686e6a24fc9e11637}\label{clt_net_8h_af91a05c6e75309e686e6a24fc9e11637}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!net\+Read@{net\+Read}}
+\index{net\+Read@{net\+Read}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{net\+Read()}{netRead()}}
+{\footnotesize\ttfamily net\+Read (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Fonction permettant de lire des données depuis le réseau, il est nécessaire qu\textquotesingle{}une connexion soit active afin d\textquotesingle{}être utilisée \begin{DoxyReturn}{Returns}
+Le paquet qui a été lu depuis une connexion T\+CP 
+\end{DoxyReturn}
+
+
+Definition at line 182 of file net.\+c.
+
+\mbox{\Hypertarget{clt_net_8h_a068e6bafd1f6441a0f8b6aea130fdcc8}\label{clt_net_8h_a068e6bafd1f6441a0f8b6aea130fdcc8}} 
+\index{clt\+Net.\+h@{clt\+Net.\+h}!net\+Send@{net\+Send}}
+\index{net\+Send@{net\+Send}!clt\+Net.\+h@{clt\+Net.\+h}}
+\subsubsection{\texorpdfstring{net\+Send()}{netSend()}}
+{\footnotesize\ttfamily net\+Send (\begin{DoxyParamCaption}\item[{\hyperlink{structnet_packet}{packet\+\_\+t}}]{p }\end{DoxyParamCaption})}
+
+Fonction permettant d\textquotesingle{}envoyer des données sur le réseau, il est nécessaire qu\textquotesingle{}une connexion soit active afin d\textquotesingle{}être utilisée 
+\begin{DoxyParams}{Parameters}
+{\em p} & Paquet à envoyer au travers d\textquotesingle{}une connexion T\+CP \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 168 of file net.\+c.
+
