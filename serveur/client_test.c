@@ -34,16 +34,33 @@ void dialogueSrv (int sd, struct sockaddr_in srv,int mode) {
 	char* MSG;
 	if (mode == 1)
 	{
-		MSG = "1 : 192.168.152.28 : 2082";
+		printf("demande list\n");
+		MSG = "2 : 192.168.152.26 : 2082";
 		CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
 		memset(reponse,0,sizeof(reponse));
 		CHECK(read(sd, reponse, sizeof(reponse)), "Can't send");
 		printf("%s\n",reponse );
-	}else{
-		MSG = "4 : 192.168.152.26 : 2082";
+		getchar();
+		printf("\nRejoindre\n");
+		MSG = "3 : 1";
 		CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
+		memset(reponse,0,sizeof(reponse));
 		CHECK(read(sd, reponse, sizeof(reponse)), "Can't send");
 		printf("%s\n",reponse );
+		getchar();
+	}else{
+		if (mode == 2)
+		{
+			MSG = "5 : 1 : 383";
+			CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
+			CHECK(read(sd, reponse, sizeof(reponse)), "Can't send");
+			printf("%s\n",reponse );
+		}else{
+			MSG = "1 : 192.168.152.26 : 2082";
+			CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
+			CHECK(read(sd, reponse, sizeof(reponse)), "Can't send");
+			printf("%s\n",reponse );
+		}
 	}
 	printf("Message Bye\n");
 	MSG ="0 : BYE";
