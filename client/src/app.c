@@ -60,6 +60,7 @@ int main(int argc, char** argv) {
             while(SDL_PollEvent(&e) > 0) {
                 switch(e.type){
                     case SDL_QUIT:
+                        gameQuitEvent();
                         running = 0;
                     break;
                     case SDL_MOUSEBUTTONDOWN:

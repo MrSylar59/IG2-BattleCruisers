@@ -95,6 +95,12 @@ void gameUpdate() {
                 if (p.flag == 1 && p.size == 1 && p.data[0] == 1){
                     ready = 1;
                 }
+
+                if (p.flag == 4){
+                    SDL_Event e;
+                    e.type = SDL_QUIT;
+                    SDL_PushEvent(&e);
+                }
             }
 
             if (ship >= 5 && ready)
@@ -127,6 +133,12 @@ void gameUpdate() {
                         waitAnswer = 0;
                         myTurn = 0;
                     }
+
+                    if (p.flag == 4){
+                        SDL_Event e;
+                        e.type = SDL_QUIT;
+                        SDL_PushEvent(&e);
+                    }
                 }
             }
             else {
@@ -154,6 +166,12 @@ void gameUpdate() {
 
                         waitAnswer = 0;
                         myTurn = 1;
+                    }
+
+                    if (p.flag == 4){
+                        SDL_Event e;
+                        e.type = SDL_QUIT;
+                        SDL_PushEvent(&e);
                     }
                 }
             }
@@ -277,6 +295,16 @@ void gameKeyPressed(SDL_KeyboardEvent e){
              //   gs = MAIN_MENU;
         break;
     }
+}
+
+void gameQuitEvent(){
+    printf("On quitte le jeu\n");
+
+    packet_t p;
+    p.flag = 4;
+    p.size = 1;
+    p.data[0] = 1;
+    netSend(p);
 }
 
 int min(int a, int b){
