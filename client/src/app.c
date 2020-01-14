@@ -60,6 +60,7 @@ int main(int argc, char** argv) {
             while(SDL_PollEvent(&e) > 0) {
                 switch(e.type){
                     case SDL_QUIT:
+                        gameQuitEvent();
                         running = 0;
                     break;
                     case SDL_MOUSEBUTTONDOWN:
@@ -79,6 +80,11 @@ int main(int argc, char** argv) {
     else {
         fprintf(stderr, "Erreur lors de la création de la fenêtre:\n%s", SDL_GetError());
     }
+
+    if (isHost())
+        closeServer();
+    else
+        disconnect();
 
     SDL_Quit();
 

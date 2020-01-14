@@ -81,6 +81,14 @@ void gameMouseMotion(SDL_MouseMotionEvent);
 void gameKeyPressed(SDL_KeyboardEvent);
 
 /**
+ * \fn gameQuitEvent ()
+ * Fonction appellée si l'utilisateur tente de quitter l'application avant la fin de la partie afin de prévenir
+ * l'autre joueur
+ * \param e Evénement capturé par SDL
+*/
+void gameQuitEvent();
+
+/**
  * \fn min (int a, int b)
  * Fonction utilitaire qui renvoie le minimum entre deux entiers
  * \param a Premier nombre à comparer au second
