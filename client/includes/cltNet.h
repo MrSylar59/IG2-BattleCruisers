@@ -18,7 +18,7 @@
  * Structure de données représentant un paquet de l'application
 */
 typedef struct netPacket {
-    u_int8_t size;
+    int8_t size;
     u_int8_t flag;
     u_int8_t data[20];
 } packet_t;
