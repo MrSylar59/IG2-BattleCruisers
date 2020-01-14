@@ -80,6 +80,11 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Erreur lors de la création de la fenêtre:\n%s", SDL_GetError());
     }
 
+    if (isHost())
+        closeServer();
+    else
+        disconnect();
+
     SDL_Quit();
 
     return 0;
