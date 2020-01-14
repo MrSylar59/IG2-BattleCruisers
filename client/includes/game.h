@@ -2,6 +2,7 @@
 #define _H_GAME_
 
 #include <SDL2/SDL.h>
+#include "../includes/cltNet.h"
 
 /**
  * Enum représentant les différents états possibles de l'application
@@ -22,6 +23,8 @@ typedef struct mousePos {
 
 /**
  * Fonction appellée après l'initialisation de la SDL et la création de la fenêtre
+ * Le premier entier permet de savoir si le client est un hôte ou non, dans le cas où ce
+ * n'est pas l'hôte, les infos de connexion sont passés en deuxième argument
 */
 void gameInit();
 

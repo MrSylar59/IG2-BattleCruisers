@@ -1,7 +1,8 @@
 #include "../../shared/includes.h"
 #include "../includes/game.h"
+#include "../includes/cltNet.h"
 
-int main() {
+int main(int argc, char** argv) {
     int running = 1;
 
     /*  INIT DE SDL  */
@@ -26,6 +27,20 @@ int main() {
         }
 
         SDL_Event e;
+
+        // TODO: A remplacer ! Code pour démo multi !
+        if (argc > 1){
+            connectionInfo_t infos;
+            infos.port = SERVER_PORT;
+            infos.ipaddr = malloc(strlen(argv[1]));
+            strcpy(infos.ipaddr, argv[1]);
+            printf("Client: Connexion au serveur %s:%i\n", infos.ipaddr, infos.port);
+
+            joinServer(&infos);
+        }
+        else {
+            createServer();
+        }
 
         gameInit();
 

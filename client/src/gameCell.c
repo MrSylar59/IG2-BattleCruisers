@@ -23,7 +23,7 @@ void renderGameCell(SDL_Renderer* pRend, t_gameCell* cell){
             SDL_SetRenderDrawColor(pRend, 0, 0, 128, 255);
         break;
         case WATER:
-            SDL_SetRenderDrawColor(pRend, 128, 0, 0, 255);
+            SDL_SetRenderDrawColor(pRend, 0, 0, 0, 255);
         break;
         case DESTROYED:
             SDL_SetRenderDrawColor(pRend, 255, 0, 0, 255);
