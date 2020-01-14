@@ -78,6 +78,14 @@ void gameUpdate() {
                         else
                             setGameCellState(INVALID, &cells[mpos.x][i]);
             }
+            else
+            {
+                for (int x = 0; x < 10; x++)
+                for (int y = 0; y < 10; y++){
+                    setGameCellState(NEUTRAL, &cells[x][y]);
+                }
+            }
+            
 
             if (!ready && nextAsk <= 0){
                 nextAsk = WAIT_TIME;
