@@ -13,11 +13,13 @@ enum gameState gs = PLACING;
 t_mousePos mpos = {0, 0};
 u_int8_t rotate = 0;
 int shipSizes[5] = {5, 4, 3, 3, 2};
-int ship = 0;           // Nombre de bâteaux que j'ai placé si >= 5, je suis prêt !
-int valid = 1;          // L'emplacement est-il valide pour un bâteau ?
-int myTurn = 0;         // Est-ce mon tour de jeu ?
-int ready = 0;          // L'autre joueur est-il prêt ?
-int waitAnswer = 0;     // Est-ce que j'attends une réponse de l'autre joueur ?
+int ship;           // Nombre de bâteaux que j'ai placé si >= 5, je suis prêt !
+int valid;          // L'emplacement est-il valide pour un bâteau ?
+int myTurn;         // Est-ce mon tour de jeu ?
+int ready;          // L'autre joueur est-il prêt ?
+int waitAnswer;     // Est-ce que j'attends une réponse de l'autre joueur ?
+int score;          // Combien de cases ai-je touché ? (si = 15 alors je gagne)
+int oScore;         // Combien de cases l'autre à touché (si = 15 alors je perd)
 
 void gameInit() {
     for (int x = 0; x < 10; x++)
@@ -30,9 +32,18 @@ void gameInit() {
 
     // TODO : à supprimer, pour démo
     if (isHost()){
-        while(!hasClient());
         myTurn = 1;
     }
+    else {
+        myTurn = 0;
+    }
+
+    ship = 0;
+    valid = 1;
+    ready = 0;
+    waitAnswer = 0;
+    score = 0;
+    oScore = 0;
 }
 
 float nextAsk = WAIT_TIME;
@@ -96,7 +107,7 @@ void gameUpdate() {
                     ready = 1;
                 }
 
-                if (p.flag == 4){
+                if (p.flag == 4 || score >= 17 || oScore >= 17){
                     SDL_Event e;
                     e.type = SDL_QUIT;
                     SDL_PushEvent(&e);
@@ -125,6 +136,7 @@ void gameUpdate() {
                     if (p.flag == 3 && p.size == 3){
                         if (p.data[2]){
                             setGameCellState(DESTROYED, &cells[p.data[0]][p.data[1]]);
+                            score++;
                         }
                         else {
                             setGameCellState(WATER, &cells[p.data[0]][p.data[1]]);
@@ -134,7 +146,7 @@ void gameUpdate() {
                         myTurn = 0;
                     }
 
-                    if (p.flag == 4){
+                    if (p.flag == 4 || score >= 17 || oScore >= 17){
                         SDL_Event e;
                         e.type = SDL_QUIT;
                         SDL_PushEvent(&e);
@@ -157,8 +169,10 @@ void gameUpdate() {
                         ans.data[0] = p.data[0];
                         ans.data[1] = p.data[1];
 
-                        if (cells[p.data[0]][p.data[1]].hasShip)
+                        if (cells[p.data[0]][p.data[1]].hasShip){
                             ans.data[2] = 1;
+                            oScore++;
+                        }
                         else
                             ans.data[2] = 0;
 
@@ -168,7 +182,7 @@ void gameUpdate() {
                         myTurn = 1;
                     }
 
-                    if (p.flag == 4){
+                    if (p.flag == 4 || score >= 17 || oScore >= 17){
                         SDL_Event e;
                         e.type = SDL_QUIT;
                         SDL_PushEvent(&e);
@@ -309,4 +323,12 @@ void gameQuitEvent(){
 
 int min(int a, int b){
     return (a<b) ? a : b;
+}
+
+int hasWon() {
+    return score >= 17;
+}
+
+int hasLost() {
+    return oScore >= 17;
 }

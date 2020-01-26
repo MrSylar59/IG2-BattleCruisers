@@ -1,7 +1,7 @@
 all: jeu
 
 debug: src/app.c game.o gameCell.o net.o
-	gcc obj/*.o src/app.c -o bin/app.exe -lSDL2 -lpthread -D_DEBUG
+	gcc obj/*.o src/app.c -o bin/app.exe -lSDL2 -lpthread -D _DEBUG
 
 game.o: src/game.c
 	gcc -c src/game.c -o obj/game.o

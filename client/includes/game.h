@@ -81,7 +81,7 @@ void gameMouseMotion(SDL_MouseMotionEvent);
 void gameKeyPressed(SDL_KeyboardEvent);
 
 /**
- * \fn gameQuitEvent ()
+ * \fn gameQuitEvent (void)
  * Fonction appellée si l'utilisateur tente de quitter l'application avant la fin de la partie afin de prévenir
  * l'autre joueur
  * \param e Evénement capturé par SDL
@@ -96,5 +96,19 @@ void gameQuitEvent();
  * \return Le nombre le plus petit entre a et b
 */
 int min(int, int);
+
+/**
+ * \fn hasWon (void)
+ * Fonction qui permet de déterminer si le joueur a gagné
+ * \return 1 si le joueur a gagné et 0 sinon
+*/
+int hasWon();
+
+/**
+ * \fn hasLost(void)
+ * Fonction qui permet de déterminer si le joueur a perdu
+ * \return 1 si le joueur a perdu et 0 sinon
+*/
+int hasLost();
 
 #endif

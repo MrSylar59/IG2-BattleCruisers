@@ -209,6 +209,41 @@ char* LireRoom(){
 }
 
 
+char* RoomInfosByID(int req_id){
+	FILE* pf;
+	int MAX_LIGNE = 50;
+	char* ligne=(char *) malloc(MAX_LIGNE);
+	char* all=(char *) malloc(MAX_BUFF);
+	char* port_char = (char *) malloc( sizeof(int));	
+	int id;
+	int port;
+	pf = fopen("memoire.dat", "r");
+	if (pf != NULL)
+	{
+		while(!feof(pf)){
+			id = -1;
+			fscanf(pf,"%d : %s : %d",&id,ligne,&port);
+			if (id != -1 && id == req_id)
+			{
+				sprintf(port_char,"%d",port);
+				strcpy(all,ligne);
+				strcat(all," : ");
+				strcat(all,port_char);
+			}
+		}
+		int size = strlen(all);
+		all[size] = '\0';
+	}
+	else{
+		printf("pf null\n");
+	}
+	fclose(pf);
+	free(ligne);
+	free(port_char);
+	return all;
+}
+
+
 int main() {
 	int se, sd;
 	struct sockaddr_in svc, clt;
@@ -247,6 +282,8 @@ int main() {
 		printf("Client trouvé\n");
 		// Dialogue avec le client
 
+		//printf("%s\n", addr);
+
 		int pid = fork();
 		if (pid == 0)
 		{
@@ -263,35 +300,42 @@ int main() {
 
 void dialogueClt (int sd, struct sockaddr_in clt) {
 	char requete[MAX_BUFF];
-	char adresse[MAX_BUFF];
-	char port[MAX_BUFF];
+	char arg1[MAX_BUFF];
+	char arg2[MAX_BUFF];
+
+	struct sockaddr_in* pV4Addr = (struct sockaddr_in*)&clt;
+	struct in_addr ipAddr = pV4Addr->sin_addr;
+	char addr[INET_ADDRSTRLEN];
+	inet_ntop( AF_INET, &ipAddr, addr, INET_ADDRSTRLEN );
+
 	do {
 		read(sd, buffer, sizeof(buffer));
 		printf("Message reçu :\n");
-		sscanf (buffer, "%s : %s : %s",requete,adresse,port); 
+		sscanf (buffer, "%s : %s : %s",requete,arg1,arg2); 
 		switch (atoi(requete)) {
 			case 0 : 
 				printf("Au revoir\n");
 			break;
 			case 1 : 
 				printf("Creation Room\n");
+
 				printf("%s\n",buffer);
-				printf("%s\n",adresse);
-				printf("%s\n",port);
+				printf("%s\n",addr);
+				printf("%s\n",arg1);
 				sem_wait(mutex);
-				int id = ajouterRoom(adresse,(int)*port);
+				int id = ajouterRoom(addr, atoi(arg1));
 				sem_post(mutex);
-				int fullSize = strlen(adresse)+strlen(port)+3+sizeof(int);
+				int fullSize = strlen(addr)+strlen(arg1)+3+sizeof(int);
 				char* MSG = (char *) malloc( fullSize );
-    			char* id_char = (char *) malloc( sizeof(int));
+    			char* id_char = (char *) malloc( sizeof(int)+1);
     			sprintf(id_char,"%d",id);
     			strcpy(MSG,id_char);
     			strcat(MSG," : ");	
-    			strcat(MSG,adresse);
+    			strcat(MSG,addr);
     			strcat(MSG," : ");
-    			strcat(MSG,port);
+    			strcat(MSG,arg1);
 				printf("%s\n",MSG );
-				CHECK(write(sd, MSG, strlen(MSG)), "Can't send");
+				CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
 				free(id_char);
 				free(MSG);
 			break;
@@ -305,8 +349,8 @@ void dialogueClt (int sd, struct sockaddr_in clt) {
 			break;
 			case 3:
 				printf("Join Room\n");
-				printf("%s\n",adresse);
-				int mdp = rejoindreRoom(atoi(adresse));
+				printf("%s\n",arg1);
+				int mdp = rejoindreRoom(atoi(arg1));
 				printf("join mdp :%d\n",mdp );
 				//TODO MSG
 				MSG = (char *) malloc( fullSize );
@@ -316,34 +360,38 @@ void dialogueClt (int sd, struct sockaddr_in clt) {
 					strcpy(MSG,"1");
 				}else{
 					strcpy(MSG,"0");
+					break;
 				}
     			strcat(MSG," : ");
-    			sprintf(char_mdp,"%d",mdp);
+    			sprintf(char_mdp,"%d : ",mdp);
     			strcat(MSG,char_mdp);
-				CHECK(write(sd, MSG, strlen(MSG)), "Can't send");
+				char* infos = RoomInfosByID(atoi(arg1));
+				strcat(MSG,infos);
+				printf("MSG: %s\n", MSG);
+				CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
 			break;
 			case 4 :
 				printf("Lancement partie\n");
 				sem_wait(mutex);
-				id = supprimerRoom(adresse,(int)*port);
+				id = supprimerRoom(addr, atoi(arg1));
 				sem_post(mutex);
-				fullSize = strlen(adresse)+strlen(port)+3+sizeof(int);
+				fullSize = strlen(addr)+strlen(arg1)+3+sizeof(int);
 				MSG = (char *) malloc( fullSize );
 				id_char = (char *) malloc( sizeof(int));
 				sprintf(id_char,"%d",id);
     			strcpy(MSG,id_char);
     			strcat(MSG," : ");
-    			strcat(MSG,adresse);
+    			strcat(MSG,arg1);
     			strcat(MSG," : ");
-    			strcat(MSG,port);
-				CHECK(write(sd, MSG, strlen(MSG)), "Can't send");
+    			strcat(MSG,arg2);
+				CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
 				free(id_char);
 				free(MSG);
 			break;
 			case 5 :
 				printf("Verif mdp\n");
 				sem_wait(file_request);
-				int test = verifrequest(atoi(adresse),atoi(port));
+				int test = verifrequest(atoi(arg1),atoi(arg2));
 				sem_post(file_request);
 				MSG = (char *) malloc( fullSize );
 				if (test == 1)
@@ -352,7 +400,7 @@ void dialogueClt (int sd, struct sockaddr_in clt) {
 				}else{
 					strcpy(MSG,"0");
 				}
-				CHECK(write(sd, MSG, strlen(MSG)), "Can't send");
+				CHECK(write(sd, MSG, strlen(MSG)+1), "Can't send");
 			break;
 			default :
 			printf("NOK : message recu %s\n", buffer); 

@@ -22,23 +22,31 @@ int res;
 ////////////////////////
 void th_dialogue(int sd){
     do {
+        #ifdef _DEBUG
         printf("Attente d'une opération\n");
+        #endif
 
         // Attente d'une opération par l'application
         pthread_mutex_lock(&mutex);
 
         switch(op) {
             case 0: // déconnexion, fin du dialogue
+                #ifdef _DEBUG
                 printf("Déconnexion demandée.\n");
+                #endif
             break;
 
             case 1: // écriture sur le réseau demandé
+                #ifdef _DEBUG
                 printf("Ecriture demandée\n");
+                #endif
                 CHECK(write(sd, &packet_buffer, sizeof packet_buffer), "Error: Unable to write to network!");
             break;
 
             case 2: // lecture sur le réseau demandé
+                #ifdef _DEBUG
                 printf("Lecture demandée\n");
+                #endif
                 
                 fd.fd = sd;
                 fd.events = POLLIN;
