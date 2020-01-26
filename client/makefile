@@ -15,6 +15,9 @@ net.o: src/net.c
 jeu: src/app.c game.o gameCell.o net.o
 	gcc obj/*.o src/app.c -o bin/app.exe -lSDL2 -lpthread
 
+static: src/app.c game.o gameCell.o net.o
+	gcc obj/*.o src/app.c -o bin/app.st.exe -lpthread -lSDL2main -lSDL2 -lm -static-libgcc
+
 clean:
 	rm obj/*.o
 	rm bin/*.exe
